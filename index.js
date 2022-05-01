@@ -10,27 +10,41 @@ class HashTable {
     }
     return hash;
   }
+  // account for collisions
   set(key,value){
-    this.data[this._hash(key)]=[key,value] 
+
+    let memoryAddress = this._hash(key)
+    console.log (memoryAddress)
+
+    if (!this.data[memoryAddress]){
+      this.data[memoryAddress] = []
+    }else {
+      console.log("There is a item at this memory")
+      }
+    this.data[memoryAddress].push([key,value])
     return this.data
+ 
+    
 }
 
  get(key){
-   return this.data[this._hash(key)]
+   let dataAtGivenKey =  this.data[this._hash(key)]
+ 
+
+   for (let i = 0; i <dataAtGivenKey.length; i++){
+     if (key === dataAtGivenKey[i][0])
+       return dataAtGivenKey[i][1]
+   }
+   return "Error: The key was not found"
 }
 
 }
 
 
-const myHashTable = new HashTable(50);
+const myHashTable = new HashTable(2);
 
+console.log(myHashTable.set('grapes', 23423))
+console.log(myHashTable.set('grape', 90))
 
-
-
-
-
-
-console.log(myHashTable.set('grapes', 10000))
+console.log(myHashTable.set('apple', 54))
 console.log(myHashTable.get('grapes'))
-console.log(myHashTable.set('apples', 9))
-console.log(myHashTable.get('apples'))
