@@ -14,7 +14,7 @@ class HashTable {
   set(key,value){
 
     let memoryAddress = this._hash(key)
-    console.log (memoryAddress)
+  
 
     if (!this.data[memoryAddress]){
       this.data[memoryAddress] = []
@@ -37,14 +37,26 @@ class HashTable {
    }
    return "Error: The key was not found"
 }
-
+keys(){
+  let keysArray = []
+  for (let e = 0; e<this.data.length;e++){
+    if (!this.data[e]){
+      continue
+    }else
+      keysArray.push(this.data[e][0][0])
+  }
+  return keysArray
+}
 }
 
 
-const myHashTable = new HashTable(2);
+const myHashTable = new HashTable(25);
 
 console.log(myHashTable.set('grapes', 23423))
-console.log(myHashTable.set('grape', 90))
+console.log(myHashTable.set('oranges', 90))
 
-console.log(myHashTable.set('apple', 54))
+console.log(myHashTable.set('strawberries', 16))
+console.log(myHashTable.set('kiwi', 54))
 console.log(myHashTable.get('grapes'))
+console.log(myHashTable.keys())
+
